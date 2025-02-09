@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Task Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 0.5s ease;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            border: 5px solid transparent;
+            transition: border-color 0.5s ease;
+        }
+        body[style*="nature,forest"] .container {
+            border-color: #4CAF50; /* Green border for forest */
+        }
+        body[style*="nature,water"] .container {
+            border-color: #2196F3; /* Blue border for water */
+        }
+        body[style*="nature,mountain"] .container {
+            border-color: #9C27B0; /* Purple border for mountains */
+        }
+        body[style*="nature,beach"] .container {
+            border-color: #FFC107; /* Yellow border for beach */
+        }
+        body[style*="nature,sunset"] .container {
+            border-color: #FF5722; /* Orange border for sunset */
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .date {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #666;
+        }
+        .task-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .task-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .task-input button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .task-input button:hover {
+            background-color: #45a049;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        ul li span {
+            flex: 1;
+        }
+        ul li button {
+            background-color: #ff4d4d;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        ul li button:hover {
+            background-color: #ff3333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Daily Task Tracker</h1>
+        <div class="date" id="currentDate"></div>
+        <div class="task-input">
+            <input type="text" id="taskInput" placeholder="Enter your task...">
+            <button onclick="addTask()">Add Task</button>
+        </div>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        const backgroundImages = [
+            'https://source.unsplash.com/1600x900/?office,call-center',
+            'https://source.unsplash.com/1600x900/?office,workplace',
+            'https://source.unsplash.com/1600x900/?teamwork,business',
+            'https://source.unsplash.com/1600x900/?desk,computer',
+            'https://source.unsplash.com/1600x900/?technology,work'
+        ];
+
+        function changeBackground() {
+            const randomImage = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
+            document.body.style.backgroundImage = `url('${randomImage}')`;
+        }
+
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const taskList = document.getElementById('taskList');
+
+            const taskValue = taskInput.value.trim();
+            if (taskValue === '') {
+                alert('Please enter a task.');
+                return;
+            }
+
+            const listItem = document.createElement('li');
+            const taskText = document.createElement('span');
+            taskText.textContent = taskValue;
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.onclick = function () {
+                taskList.removeChild(listItem);
+                changeBackground();
+            };
+
+            listItem.appendChild(taskText);
+            listItem.appendChild(deleteButton);
+            taskList.appendChild(listItem);
+
+            taskInput.value = '';
+            changeBackground();
+        }
+
+        function displayDate() {
+            const dateElement = document.getElementById('currentDate');
+            const today = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateElement.textContent = today.toLocaleDateString(undefined, options);
+        }
+
+        // Set initial background image and date
+        changeBackground();
+        displayDate();
+    </script>
+</body>
+</html>
