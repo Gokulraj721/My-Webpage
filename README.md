@@ -26,3 +26,6 @@ Created to practice front-end development and demonstrate clean UI design using 
 - Add task persistence using localStorage
 - Include categories or priority levels
 - Add calendar view for tracking over time
+## 📸 Screenshot
+<img width="847" height="533" alt="image" src="https://github.com/user-attachments/assets/d225d503-f41e-44ef-b188-987e2c84afb7" />
+
